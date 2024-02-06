@@ -3,7 +3,7 @@
 using namespace std;
 
 void merge(int arr[], int p, int q, int r) {
-  
+
     int n1 = q - p + 1;
     int n2 = r - q;
 
@@ -48,13 +48,13 @@ void merge(int arr[], int p, int q, int r) {
 
 void mergeSort(int arr[], int l, int r) {
     if (l < r) {
-    
+
         int m = l + (r - l) / 2;
 
         mergeSort(arr, l, m);
         mergeSort(arr, m + 1, r);
 
-    
+
         merge(arr, l, m, r);
     }
 }
@@ -74,7 +74,12 @@ void merge_para(int arr[],int l,int r){
         }
         merge(arr,l,m,r);
     }
-    
+
+}
+void swap(int &a, int &b) {
+    int temp = a;
+    a = b;
+    b = temp;
 }
 void bubbleSort(int arr[], int n)
 {
@@ -108,7 +113,7 @@ void bubble_para(int arr[], int n){
 
             if (arr[j] > arr[j + 1]){
 
-                swap_para(&arr[j], &arr[j + 1]);
+                  swap_para(&arr[j], &arr[j + 1]);
             } 
         }
     }
@@ -133,50 +138,57 @@ int main() {
         arr3[i]=arr1[i];
         arr4[i]=arr1[i];
     }
-    printArray(arr1,n);
+    //printArray(arr1,n);
     auto start = chrono :: steady_clock :: now();
-
-    
     mergeSort(arr1, 0, n - 1);
     auto end = chrono :: steady_clock :: now();
 
-    cout << " Merge Sorted array: \n";
-    printArray(arr1, n);
+    cout << " \nMerge Sorted array: \n";
+    //printArray(arr1, n);
     chrono::duration<double,micro>fp=end-start;
-    cout<<fp.count()<<" microseconds"<<endl;
-
+  cout<<"*****************************************************************";
+    cout<<"\n"<<fp.count()<<" microseconds"<<endl;
+  cout<<"*****************************************************************";
     auto start1 = chrono :: steady_clock :: now();
-
     merge_para(arr2,0,n-1);
-
     auto end1 = chrono :: steady_clock :: now();
 
-    
 
-    cout << "Parallel Merge Sorted array: \n";
-    printArray(arr2, n);
+
+    cout << "\nParallel Merge Sorted array: \n";
+    //printArray(arr2, n);
     chrono::duration<double,micro>fp1=end1-start1;
-    cout<<fp1.count()<<" microseconds"<<endl;
+  cout<<"*****************************************************************";
+    cout<<"\n"<<fp1.count()<<" microseconds"<<endl;
+  cout<<"*****************************************************************";
 
     auto start2 = chrono :: steady_clock :: now();
     bubbleSort(arr3, n);
     auto end2 = chrono :: steady_clock :: now();
 
-    cout << "Bubble Sorted array: \n";
+    cout << "\nBubble Sorted array: \n";
 
-    printArray(arr3, n);
+    //printArray(arr3, n);
     chrono::duration<double,micro>fp2=end2-start2;
-    cout<<fp2.count()<<" microseconds"<<endl;
+  cout<<"*****************************************************************";
+    cout<<"\n"<<fp2.count()<<" microseconds"<<endl;
+  cout<<"*****************************************************************";
 
     auto start3 = chrono::steady_clock::now(); 
     bubble_para(arr4,n);
     auto end3 = chrono::steady_clock::now();
 
-    cout << "Parallel Bubble Sorted array: \n";
+    cout << "\nParallel Bubble Sorted array: \n";
 
-    printArray(arr4, n);
+    //printArray(arr4, n);
     chrono::duration<double,micro>ft3=end3-start3;
-    cout<<ft3.count()<<" microseconds"<<endl;
+  cout<<"*****************************************************************";
+    cout<<"\n"<<ft3.count()<<" microseconds"<<endl;
+  cout<<"*****************************************************************";
+
+  cout<<"\nSpeedup of merge sort is:"<<fp.count()/fp1.count()<<endl;
+  cout<<"\nSpeedup of bubble sort is:"<<fp2.count()/ft3.count()<<endl;
+
 
     return 0;
 }
