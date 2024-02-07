@@ -108,8 +108,8 @@ void bubble_para(int arr[], int n){
 
     for (i = 0; i < n - 1; i++){
         f=i%2;
-        #pragma omp parallel for default(none), shared(arr,first,n)
-        for (j = f; j < n - 1; j++){
+        #pragma omp parallel for default(none), shared(arr,f,n)
+        for(j = f; j < n - 1; j++){
 
             if (arr[j] > arr[j + 1]){
 
