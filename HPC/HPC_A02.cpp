@@ -1,6 +1,12 @@
 #include<iostream>
-#include<bits/stdc++.h>
+#include <climits>
+#include <chrono>
+#include <omp.h>
+//#include<bits/stdc++.h>
 using namespace std;
+/*Write a program to implement Parallel Bubble Sort and Merge sort using OpenMP. Use
+existing algorithms and measure the performance of sequential and parallel algorithms.*/
+//g++ -fopenmp HPC_Assign02.cpp -o output1
 
 void merge(int arr[], int p, int q, int r) {
 
@@ -133,61 +139,55 @@ int main() {
     int arr1[n],arr2[n],arr3[n],arr4[n];
     for(int i=0;i<n;i++){
         //cin>>arr[i];
-        arr1[i]=rand()%n;
+        arr1[i]=(rand()%n);
         arr2[i]=arr1[i];
         arr3[i]=arr1[i];
         arr4[i]=arr1[i];
     }
-    //printArray(arr1,n);
+    printArray(arr1,n);
     auto start = chrono :: steady_clock :: now();
     mergeSort(arr1, 0, n - 1);
     auto end = chrono :: steady_clock :: now();
 
-    cout << " \nMerge Sorted array: \n";
-    //printArray(arr1, n);
+    cout << "\nSeqential Merge Sorted array:";
+    printArray(arr1, n);
     chrono::duration<double,micro>fp=end-start;
-  cout<<"*****************************************************************";
-    cout<<"\n"<<fp.count()<<" microseconds"<<endl;
-  cout<<"*****************************************************************";
+    cout<<"Time Taken by Seqential Merge Sort: "<<fp.count()<<" microseconds"<<endl;
     auto start1 = chrono :: steady_clock :: now();
     merge_para(arr2,0,n-1);
     auto end1 = chrono :: steady_clock :: now();
 
 
 
-    cout << "\nParallel Merge Sorted array: \n";
-    //printArray(arr2, n);
+    cout << "\nParallel Merge Sorted array:";
+    printArray(arr2, n);
     chrono::duration<double,micro>fp1=end1-start1;
-  cout<<"*****************************************************************";
-    cout<<"\n"<<fp1.count()<<" microseconds"<<endl;
-  cout<<"*****************************************************************";
+    cout<<"Time Taken by Parallel Merge Sort: "<<fp1.count()<<" microseconds"<<endl;
 
     auto start2 = chrono :: steady_clock :: now();
     bubbleSort(arr3, n);
     auto end2 = chrono :: steady_clock :: now();
 
-    cout << "\nBubble Sorted array: \n";
+    cout << "\nSeqential Bubble Sorted array:";
 
-    //printArray(arr3, n);
+    printArray(arr3, n);
     chrono::duration<double,micro>fp2=end2-start2;
-  cout<<"*****************************************************************";
-    cout<<"\n"<<fp2.count()<<" microseconds"<<endl;
-  cout<<"*****************************************************************";
+    cout<<"Time Taken by Seqential Bubble Sort: "<<fp2.count()<<" microseconds"<<endl;
+
 
     auto start3 = chrono::steady_clock::now(); 
     bubble_para(arr4,n);
     auto end3 = chrono::steady_clock::now();
 
-    cout << "\nParallel Bubble Sorted array: \n";
+    cout << "\nParallel Bubble Sorted array:";
 
-    //printArray(arr4, n);
-    chrono::duration<double,micro>ft3=end3-start3;
-  cout<<"*****************************************************************";
-    cout<<"\n"<<ft3.count()<<" microseconds"<<endl;
-  cout<<"*****************************************************************";
+    printArray(arr4, n);
+    chrono::duration<double,micro>fp3=end3-start3;
+    cout<<"Time Taken by Parallel Bubble Sort: "<<fp3.count()<<" microseconds"<<endl;
 
-  cout<<"\nSpeedup of merge sort is:"<<fp.count()/fp1.count()<<endl;
-  cout<<"\nSpeedup of bubble sort is:"<<fp2.count()/ft3.count()<<endl;
+
+  cout<<"\nSpeedup of merge sort is:"<<fp.count() / fp1.count()<<endl;
+  cout<<"\nSpeedup of bubble sort is:"<<fp2.count() / fp3.count()<<endl;
 
 
     return 0;
